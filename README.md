@@ -33,9 +33,9 @@ Create a `.env` file in the project root:
 
 ```bash
 # XM Trading MT5 Credentials
-XM_ACCOUNT_ID=301073553
-XM_SERVER=XMGlobal-MT5 6
-XM_PASSWORD=Sirius#888
+XM_ACCOUNT_ID=
+XM_SERVER=
+XM_PASSWORD=
 
 # XM API Configuration
 XM_BROKER_URL=https://mt5.xmtrading.com
