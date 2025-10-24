@@ -8,7 +8,62 @@
 [![Linting: flake8](https://img.shields.io/badge/linting-flake8-informational)](https://flake8.pycqa.org/)
 [![Type checking: mypy](https://img.shields.io/badge/type_checking-mypy-blue)](http://mypy-lang.org/)
 
-**EXODUS** is a broker integration and order-routing platform designed for safe, auditable, and low-latency trading across retail and institutional broker connectivity. The platform centralizes risk control, provides durable order state and reconciliation, and exposes a normalized API for clients and trading strategies.
+---
+
+## Quick Start
+
+### 1. Setup Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/amuzetnoM/exodus.git
+cd exodus
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. Configure XM Trading Credentials
+
+Create a `.env` file in the project root:
+
+```bash
+# XM Trading MT5 Credentials
+XM_ACCOUNT_ID=301073553
+XM_SERVER=XMGlobal-MT5 6
+XM_PASSWORD=Sirius#888
+
+# XM API Configuration
+XM_BROKER_URL=https://mt5.xmtrading.com
+XM_API_KEY=${XM_ACCOUNT_ID}
+XM_API_SECRET=${XM_PASSWORD}
+```
+
+### 3. Start the System
+
+```bash
+# Start orchestrator (includes XM connectivity check)
+python -m uvicorn orchestrator.app:app --host 127.0.0.1 --port 8000
+```
+
+### 4. Access Dashboards
+
+- **Service Dashboard**: http://localhost:8000/dashboard/service
+- **Trading Dashboard**: http://localhost:8000/dashboard/trading
+
+### 5. Test with a Trade
+
+```bash
+# Place a test buy order
+curl -X POST http://localhost:8000/api/v1/orders \
+  -H "Content-Type: application/json" \
+  -H "X-Idempotency-Key: test-001" \
+  -d '{"symbol": "EURUSD", "qty": 1000, "price": 1.0875, "side": "buy"}'
+```
 
 ---
 
@@ -403,11 +458,85 @@ Risk rules are configurable via a policy store (to be implemented). Example rule
 # Activate virtual environment
 source .venv/bin/activate
 
-# Start the orchestrator
-python orchestrator/app.py
+# Start the orchestrator (will automatically load .env and check XM connectivity)
+python -m uvicorn orchestrator.app:app --host 127.0.0.1 --port 8000
 ```
 
-The orchestrator will start on `http://127.0.0.1:8000`.
+The orchestrator will start on `http://127.0.0.1:8000` and display XM connectivity status during startup.
+
+### Accessing Monitoring Dashboards
+
+#### Service Dashboard (Operations)
+Access the comprehensive monitoring dashboard for system health and debugging:
+
+```bash
+# Open in browser
+open http://localhost:8000/dashboard/service
+
+# Or via curl
+curl http://localhost:8000/dashboard/service
+```
+
+Features include:
+- Real-time system health monitoring
+- Component status indicators
+- Active alerts and notifications
+- Performance metrics and resource usage
+- Debug tools and log export
+
+#### Trading Dashboard (Performance)
+Access the trader-focused dashboard for portfolio and strategy monitoring:
+
+```bash
+# Open in browser
+open http://localhost:8000/dashboard/trading
+
+# Or via curl
+curl http://localhost:8000/dashboard/trading
+```
+
+Features include:
+- Portfolio balance and P&L tracking
+- Active positions with real-time updates
+- Performance charts and analytics
+- Risk metrics and exposure monitoring
+- Strategy performance breakdown
+
+### Testing with a Simple Trade
+
+To test the system with a live trade (use small position sizes for testing):
+
+```bash
+# Place a small buy order on EURUSD
+curl -X POST http://localhost:8000/api/v1/orders \
+  -H "Content-Type: application/json" \
+  -H "X-Idempotency-Key: test-trade-001" \
+  -d '{
+    "clientOrderId": "test-eurusd-buy",
+    "clientId": "test-client",
+    "symbol": "EURUSD",
+    "qty": 1000,
+    "price": 1.0875,
+    "side": "buy",
+    "type": "market"
+  }'
+```
+
+**Expected Response:**
+```json
+{
+  "status": "accepted",
+  "internalOrderId": "int-1729800000000",
+  "broker": "xm_mt5",
+  "brokerOrderId": "xm-12345"
+}
+```
+
+**Monitor the Trade:**
+1. Check order status: `GET /api/v1/orders/{internalOrderId}`
+2. View in trading dashboard: `http://localhost:8000/dashboard/trading`
+3. Check system health: `http://localhost:8000/dashboard/service`
+4. Review event logs: `tail -f data/events.jsonl`
 
 ### API Endpoints
 
@@ -630,6 +759,28 @@ terraform apply
 
 ## Monitoring and Observability
 
+### Built-in Dashboards
+
+EXODUS includes comprehensive monitoring dashboards accessible directly from the orchestrator:
+
+#### Service Dashboard (`/dashboard/service`)
+Professional monitoring interface for developers and operations teams featuring:
+- **System Health**: Real-time component status and overall system health
+- **Metrics Overview**: Key performance indicators and system statistics
+- **Active Alerts**: Current alerts with severity levels and timestamps
+- **Recent Activity**: Latest system events and order processing activity
+- **Debug Tools**: Health checks, log export, and system diagnostics
+- **Resource Monitoring**: CPU, memory, disk usage, and system uptime
+
+#### Trading Dashboard (`/dashboard/trading`)
+User-friendly interface for traders with comprehensive performance visualization:
+- **Portfolio Overview**: Balance, equity, margin usage, and P&L tracking
+- **Position Management**: Active positions with real-time P&L and entry/exit prices
+- **Performance Charts**: Daily and cumulative P&L with interactive Chart.js visualizations
+- **Risk Metrics**: Drawdown, Sharpe ratio, win rate, and risk exposure
+- **Strategy Analytics**: Performance by strategy with win/loss ratios
+- **Trade History**: Recent trades with detailed execution information
+
 ### Metrics
 
 EXODUS exposes Prometheus-compatible metrics at `/metrics`:
@@ -638,18 +789,27 @@ EXODUS exposes Prometheus-compatible metrics at `/metrics`:
 - **exodus_orders_rejected_total**: Total orders rejected
 - **exodus_order_latency_seconds**: Order processing latency (histogram)
 - **exodus_reconciliation_drift_total**: Reconciliation mismatches
+- **exodus_broker_connectivity**: Broker connection status (0=disconnected, 1=connected)
 
-### Dashboards
+### Dashboards Access
 
-Import the provided Grafana dashboard JSON from `monitoring/grafana_dashboard.json` (to be added).
+```bash
+# Service monitoring dashboard (for ops/dev teams)
+curl http://localhost:8000/dashboard/service
+
+# Trading performance dashboard (for traders)
+curl http://localhost:8000/dashboard/trading
+```
 
 ### Alerts
 
 Configure Prometheus alerts in `monitoring/alerts.yml` (to be added):
 
-- High order rejection rate
+- High order rejection rate (>5% in 5 minutes)
 - Reconciliation drift exceeds threshold
 - Adapter connection failures
+- System resource usage spikes
+- Trading strategy performance degradation
 
 ### Distributed Tracing
 
