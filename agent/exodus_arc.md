@@ -1,6 +1,6 @@
 # Exodus ARC Integration Research & Blueprint
 
-**Status**: Third-Party Strategy Integration Analysis  
+**Status**: Strategy Integration Analysis  
 **Last Updated**: 2025-10-24  
 **Product**: Exodus ARC  
 **Vendor**: EXODUS (internal)  
@@ -11,8 +11,8 @@
 ## 1. Executive Summary
 
 Exodus ARC is an EXODUS-native strategy service that implements a classic trend-following
-workflow inspired by the Turtle Trading rules (Donchian Channel breakouts, ATR-based sizing,
-and pyramiding). Exodus ARC is designed to run inside EXODUS but can also interoperate with
+workflow using the Donchian Channel breakouts, ATR-based sizing,
+and pyramiding. Exodus ARC is designed to run inside EXODUS but can also interoperate with
 external execution platforms (MT5) for hybrid deployments.
 
 Key Insight for EXODUS Integration:
