@@ -8,7 +8,7 @@
 [![Linting: flake8](https://img.shields.io/badge/linting-flake8-informational)](https://flake8.pycqa.org/)
 [![Type checking: mypy](https://img.shields.io/badge/type_checking-mypy-blue)](http://mypy-lang.org/)
 
-**EXODUS** is a production-grade broker integration and order-routing platform designed for safe, auditable, and low-latency trading across retail and institutional broker connectivity. The platform centralizes risk control, provides durable order state and reconciliation, and exposes a normalized API for clients and trading strategies.
+**EXODUS** is a broker integration and order-routing platform designed for safe, auditable, and low-latency trading across retail and institutional broker connectivity. The platform centralizes risk control, provides durable order state and reconciliation, and exposes a normalized API for clients and trading strategies.
 
 ---
 
