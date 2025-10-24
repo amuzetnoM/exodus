@@ -16,4 +16,5 @@ flake8==6.0.0
 mypy==1.3.0
 httpx==0.27.2
 h11==0.14.0
+psutil==5.9.0
 # end of file

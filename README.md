@@ -339,6 +339,51 @@ The orchestrator configuration is managed via environment variables and `.env` f
 
 Each broker adapter requires specific credentials and endpoints. Refer to `broker_catalog/xm_mt5.md` for XM configuration and `brokerage_platform_design.md` for general adapter setup.
 
+#### XM Trading MT5 Configuration
+
+EXODUS supports XM Trading via MetaTrader 5 bridge. Configure your XM credentials in the `.env` file:
+
+```bash
+# XM Trading MT5 Credentials
+XM_ACCOUNT_ID=your_account_number
+XM_SERVER=XMGlobal-MT5 6
+XM_PASSWORD=your_mt5_password
+
+# XM API Configuration
+XM_BROKER_URL=https://mt5.xmtrading.com
+XM_API_KEY=${XM_ACCOUNT_ID}
+XM_API_SECRET=${XM_PASSWORD}
+```
+
+**Setup Steps:**
+
+1. **Create `.env` file** in the project root with your XM credentials
+2. **Ensure `.env` is gitignored** (already configured in `.gitignore`)
+3. **Start the orchestrator** - it will automatically detect and validate XM credentials
+4. **Check connectivity** via `/status` endpoint or startup logs
+
+**Security Notes:**
+- Never commit `.env` files to version control
+- Use strong, unique passwords for MT5 accounts
+- Enable 2FA on your XM trading account when available
+- Regularly rotate API credentials
+
+**Connectivity Verification:**
+The orchestrator performs connectivity checks on startup:
+- Validates credential presence and format
+- Confirms MT5 server configuration
+- Registers XM adapter if checks pass
+- Logs detailed status information
+
+Example startup output:
+```
+Checking XM MT5 connectivity for account 301073553 on server XMGlobal-MT5 6
+✓ XM MT5 credentials configured for account 301073553
+✓ MT5 Server: XMGlobal-MT5 6
+✓ Connectivity check passed (credentials validated)
+✓ XM MT5 broker registered successfully for account 301073553
+```
+
 ### Risk Engine Configuration
 
 Risk rules are configurable via a policy store (to be implemented). Example rules:
