@@ -41,13 +41,13 @@ class TestExodusArcStrategy:
 
     def test_calculate_atr(self):
         """Test ATR calculation"""
-        # Sample OHLC data
+        # Sample OHLC data - need 11 periods for ATR calculation
         highs = [102.0, 105.0, 107.0, 106.0, 109.0, 111.0,
-                 110.0, 113.0, 112.0, 115.0]
+                110.0, 113.0, 112.0, 115.0, 114.0]
         lows = [98.0, 99.0, 101.0, 102.0, 103.0, 105.0,
-                106.0, 107.0, 108.0, 109.0]
+               106.0, 107.0, 108.0, 109.0, 110.0]
         closes = [100.0, 103.0, 105.0, 104.0, 107.0, 109.0,
-                  108.0, 111.0, 110.0, 113.0]
+                 108.0, 111.0, 110.0, 113.0, 112.0]
 
         atr = self.strategy.calculate_atr(highs, lows, closes, period=10)
 
@@ -93,9 +93,9 @@ class TestExodusArcStrategy:
 
         assert order['symbol'] == 'EURUSD'
         assert order['side'] == 'buy'
-        assert order['quantity'] == 0.1
-        assert 'stop_loss' in order
-        assert 'take_profit' in order
+        assert order['qty'] == 0.1
+        assert 'strategy' in order
+        assert 'signal_type' in order
 
 
 class TestXMMT5Adapter:

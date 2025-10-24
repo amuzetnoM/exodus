@@ -57,20 +57,40 @@ tracing = TracingService()
 alerts = AlertManager()
 order_router = OrderRouter()
 
-# Register XM MT5 broker
-xm_adapter = XMMT5Adapter(
-    broker_url="https://mt5.xmtrading.com",
-    api_key="your-xm-api-key",  # Would be loaded from env/config
-    account_id="your-account-id"
-)
+# Register XM MT5 broker (only if credentials are available)
+xm_adapter = None
+if os.getenv('XM_API_KEY') and os.getenv('XM_API_SECRET'):
+    xm_adapter = XMMT5Adapter(
+        broker_url=os.getenv('XM_BROKER_URL', 'https://mt5.xmtrading.com'),
+        api_key=os.getenv('XM_API_KEY'),
+        api_secret=os.getenv('XM_API_SECRET'),
+        account_id=os.getenv('XM_ACCOUNT_ID', 'demo-account')
+    )
 
-order_router.register_broker(
-    name="xm_mt5",
-    adapter=xm_adapter,
-    priority=1,
-    max_concurrent=50,
-    capabilities=["forex", "equities", "limit_orders", "stop_orders"]
-)
+    order_router.register_broker(
+        name="xm_mt5",
+        adapter=xm_adapter,
+        priority=1,
+        max_concurrent=50,
+        capabilities=["forex", "equities", "limit_orders", "stop_orders"]
+    )
+else:
+    # Register mock adapter for testing
+    from exodus_arc.adapters.base_adapter import BaseBrokerAdapter
+    class MockAdapter(BaseBrokerAdapter):
+        async def submit_order(self, order):
+            return type('MockResponse', (), {'status': 'accepted', 'broker_order_id': f'mock-{order["id"]}'})()
+        async def cancel_order(self, order_id):
+            return True
+
+    mock_adapter = MockAdapter("mock://test", "mock", "mock")
+    order_router.register_broker(
+        name="mock_broker",
+        adapter=mock_adapter,
+        priority=1,
+        max_concurrent=100,
+        capabilities=["forex", "equities", "limit_orders", "stop_orders"]
+    )
 
 
 def persist_event(event: dict):

@@ -377,7 +377,7 @@ class ExodusArcStrategy:
             Order dictionary for submission to orchestrator
         """
         # Determine side from signal type
-        side = "buy" if "LONG" in signal.signal_type.value else "sell"
+        side = "buy" if "long" in signal.signal_type.value else "sell"
 
         # Generate unique client order ID
         client_order_id = f"exodus_arc_{signal.signal_type.value}_{signal.symbol}_{signal.timestamp.strftime('%Y%m%d_%H%M%S')}"
