@@ -1,0 +1,226 @@
+/* EXODUS Trading Dashboard Styles */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+.pnl-positive {
+    color: #28a745;
+}
+
+.pnl-negative {
+    color: #dc3545;
+}
+
+.pnl-neutral {
+    color: #6c757d;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.metric-card h3 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.metric-card p {
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.performance-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.performance-card h4 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.performance-card p {
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+}
+
+.risk-card {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.risk-card h4 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.risk-card p {
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+}
+
+.position-card {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid;
+}
+
+.position-long {
+    border-left-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.position-short {
+    border-left-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.position-pending {
+    border-left-color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.strategy-performance {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.strategy-performance h5 {
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.progress {
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    border-radius: 5px;
+}
+
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .metric-card h3 {
+        font-size: 2rem;
+    }
+
+    .performance-card h4,
+    .risk-card h4 {
+        font-size: 1.5rem;
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

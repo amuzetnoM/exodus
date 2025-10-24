@@ -1,0 +1,203 @@
+/* EXODUS Monitoring Dashboard Styles */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+.progress {
+    height: 8px;
+    border-radius: 4px;
+}
+
+.progress-bar {
+    border-radius: 4px;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.metric-card h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.metric-card p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.metric-item {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.metric-item h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.metric-item p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.strategy-metric {
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.strategy-metric h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.strategy-metric p {
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+}
+
+.strategy-metric small {
+    opacity: 0.8;
+}
+
+.component-status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.component-status-item:last-child {
+    border-bottom: none;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.status-healthy {
+    background-color: #28a745;
+}
+
+.status-warning {
+    background-color: #ffc107;
+}
+
+.status-error {
+    background-color: #dc3545;
+}
+
+.alert-item {
+    padding: 0.75rem;
+    border-left: 4px solid;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.alert-info {
+    border-left-color: #17a2b8;
+}
+
+.alert-warning {
+    border-left-color: #ffc107;
+}
+
+.alert-error {
+    border-left-color: #dc3545;
+}
+
+.activity-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.9rem;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-timestamp {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.btn {
+    border-radius: 6px;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .metric-card h3 {
+        font-size: 1.5rem;
+    }
+}
