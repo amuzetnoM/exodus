@@ -176,5 +176,7 @@ htmlcov/
 # pytest
 .cache/
 .pytest_cache/
+__init__.py
+**/__init__.py
 
 # End of .gitignore
